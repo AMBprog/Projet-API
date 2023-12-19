@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Rap Battle | API Project</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+  <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Rap Battle</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 form-bg vh-80">
+      </div>
+
+      <div class="col-md-6 p-3">        
+        <h5>Nous contacter</h5>
+        <p>Les champs suivis de * sont obligatoires </p>
+        
+        
+        <form id="contactForm">
+          <div class="input-group mb-3">
+            <span class="input-group-text">Prénom</span>
+            <input id="givenName" type="text" class="form-control" optional>
+            <div class="valid-feedback">Looks Good !</div>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Nom*</span>
+            <input id="familyName" type="text" class="form-control" required>
+            <div class="valid-feedback">Looks Good !</div>
+            <div id="familyNameFeedback" class="invalid-feedback">Renseigner un nom
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            <span class="input-group-text">Email*</span>
+            <input id="email" type="text" class="form-control">
+            <div class="valid-feedback">Looks Good !</div>
+            <div id="EmailFeedback" class="invalid-feedback">Renseigner un e-mail
+            </div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <textarea class="form-control" placeholder="Ecrivez votre message ici" id="message"></textarea>
+            <div class="valid-feedback">Looks Good !</div>
+            <div id="message" class="invalid-feedback">Renseigner un message</div>
+            <label id="message" for="message">Message</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <select class="form-select" id="country" aria-label="floatingLabel">
+                <option selected value="fr">Française</option>
+                <option value="en">Anglaise</option>
+                <option value="de">Allemande</option>
+                <option value="es">Espagnole</option>
+            </select>
+            <label for="floatingSelect">Selectionnez votre nationnalité</label>
+        </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+            <label class="form-check-label" for="newsletter"> Oui, je souhaite m'inscrire à la Newsletter.</label>
+          </div>
+
+          <div class="form-floating mb-3"></div>
+          <button id="submitBtn" type="submit" class="btn btn-success">Envoyer !</button>
+          <button id="resetBtn" onclick="reset()" class="btn btn-warning">Effacer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+<script>
+  function reset() {
+    document.getElementById("contactForm").reset();
+  }
+// permet de mettre le statut valide ou non sur le bouton 'envoyer' et donc de le rendre
+// clicable
+</script>
+  <script type="module">
+    import { FormController } from './js/FormController.js';
+
+    const enableButton = (isValid) => {
+      const btn = document.getElementById("submitBtn");
+      if (btn) { 
+        if (!isValid) {           
+          btn.setAttribute("disabled", true)
+        } else {
+          btn.removeAttribute("disabled");
+        }
+      }
+    }
+    // message que va renvoyer la console en fonction de chaque value comprise dans chaque type de 
+    //date (familyname, email,message,prenom)
+    const controller = new FormController("contactForm", 
+      {
+        familyName: {
+          type: 'input',
+          required: false
+
+        },
+        givenName: {
+          type: 'input'
+        },
+        email: {
+          type: 'input'
+        },
+        message: {
+          type: 'textarea'
+        }
+      },
+      {
+        onvalidate: (isValid) => {
+          enableButton(isValid);
+        },
+        onsubmit: async (data) => {
+          console.log(data);
+        // permet d'afficher dans la console les renseignements assignés plus haut que si le bouton
+        //envoyer est 'valide' d'après son statut 
+        }
+      }
+    );
+
+  </script>
+
+</body>
+</html>

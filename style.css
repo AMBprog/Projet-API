@@ -1,0 +1,16 @@
+.form-bg {
+  background-position: center;
+  background-size: cover;
+}
+
+.vh-100 {
+  height: 100vb;
+}
+
+.vh-80 {
+  height: 80vb;
+}
+
+.required {
+  color:red;
+}
